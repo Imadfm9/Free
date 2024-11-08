@@ -1,0 +1,23 @@
+name: Facebook Live Stream Continuous
+
+on:
+  workflow_dispatch:  # لبدء العمل يدوياً
+  schedule:
+    - cron: "*/10 * * * *"  # جدولة العمل لتشغيله كل 10 دقائق
+
+jobs:
+  stream:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Install FFmpeg
+      run: sudo apt-get update && sudo apt-get install -y ffmpeg
+
+    - name: Start Streaming to Facebook
+      run: |
+        ffmpeg -re -i "https://live4.beinconnect.us/YallaGoalApp/beINSports4.m3u8" -c:v copy -c:a aac -strict -2 -f flv "rtmp://live-api-s.facebook.com:80/rtmp/FB-122163721700260989-0-AbyXompQphPluKJ3"
+
+    - name: Check Stream Status
+      run: |
+        sleep 300  # اجعل FFmpeg يعمل لمدة 5 دقائق قبل إعادة التشغيل المحتملة
+        # إضافة فحص حالة البث أو أي إجراءات تحقق أخرى
