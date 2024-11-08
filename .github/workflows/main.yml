@@ -1,9 +1,9 @@
 name: Facebook Live Stream Continuous
 
 on:
-  workflow_dispatch:  # لبدء العمل يدوياً
+  workflow_dispatch:  # لتشغيل العمل يدويًا من GitHub
   schedule:
-    - cron: "*/10 * * * *"  # جدولة العمل لتشغيله كل 10 دقائق
+    - cron: "*/10 * * * *"  # لتشغيل العمل كل 10 دقائق
 
 jobs:
   stream:
@@ -15,9 +15,11 @@ jobs:
 
     - name: Start Streaming to Facebook
       run: |
-        ffmpeg -re -i "https://live4.beinconnect.us/YallaGoalApp/beINSports4.m3u8" -c:v copy -c:a aac -strict -2 -f flv "rtmp://live-api-s.facebook.com:80/rtmp/FB-122163721700260989-0-AbyXompQphPluKJ3"
+        ffmpeg -re -i "https://live4.beinconnect.us/YallaGoalApp/beINSports4.m3u8" \
+        -c:v copy -c:a aac -strict -2 -f flv \
+        rtmp://live-api-s.facebook.com:1935/rtmp/FB-122163721700260989-0-AbyXompQphPluKJ3
 
     - name: Check Stream Status
       run: |
-        sleep 300  # اجعل FFmpeg يعمل لمدة 5 دقائق قبل إعادة التشغيل المحتملة
-        # إضافة فحص حالة البث أو أي إجراءات تحقق أخرى
+        sleep 300  # اجعل FFmpeg يعمل لمدة 5 دقائق (يمكن تعديل الوقت حسب الحاجة)
+        # يمكنك إضافة فحوصات أو إجراءات أخرى مثل إرسال إشعار في حال حدوث مشكلة.
