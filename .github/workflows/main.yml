@@ -16,7 +16,7 @@ jobs:
     - name: Start Continuous Streaming
       run: |
         while true; do
-          ffmpeg -re -i "http://bdd78.4rouwanda-shop.store/live/9787488847/index.m3u8?t=K7g_eFtVSsa3oCEl_FSXug&e=1731112568" \
+          ffmpeg -re -i "http://het126a.4rouwanda-shop.store/live/9787488847/index.m3u8?t=K7g_eFtVSsa3oCEl_FSXug&e=1731112568" \
           -c:v copy -c:a aac -strict -2 -f flv \
           rtmps://live-api-s.facebook.com:443/rtmp/FB-122163733676260989-0-Abyg21LTB_nbdOCJ \
           -fflags nobuffer
