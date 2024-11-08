@@ -1,4 +1,4 @@
-name: Facebook Live Stream Continuous
+name: Continuous Live Stream to Facebook
 
 on:
   workflow_dispatch:  # لتشغيل العمل يدويًا من GitHub
@@ -13,13 +13,17 @@ jobs:
     - name: Install FFmpeg
       run: sudo apt-get update && sudo apt-get install -y ffmpeg
 
-    - name: Start Streaming to Facebook via RTMPS
+    - name: Start Continuous Streaming
       run: |
-        ffmpeg -re -i "https://live4.beinconnect.us/YallaGoalApp/beINSports4.m3u8" \
-        -c:v copy -c:a aac -strict -2 -f flv \
-        rtmps://live-api-s.facebook.com:443/rtmp/FB-122163721700260989-0-AbyXompQphPluKJ3
+        while true; do
+          ffmpeg -re -i "http://bdd78.4rouwanda-shop.store/live/9787488847/index.m3u8?t=K7g_eFtVSsa3oCEl_FSXug&e=1731112568" \
+          -c:v copy -c:a aac -strict -2 -f flv \
+          rtmps://live-api-s.facebook.com:443/rtmp/FB-122163733676260989-0-Abyg21LTB_nbdOCJ \
+          -fflags nobuffer
+          echo "Stream ended. Restarting..."  # طباعة رسالة إذا انتهى البث
+          sleep 5  # الانتظار لمدة 5 ثوانٍ قبل المحاولة مرة أخرى
+        done
 
     - name: Check Stream Status
       run: |
-        sleep 300  # اجعل FFmpeg يعمل لمدة 5 دقائق (يمكن تعديل الوقت حسب الحاجة)
-        # يمكنك إضافة فحوصات أو إجراءات أخرى مثل إرسال إشعار في حال حدوث مشكلة.
+        sleep 600  # الانتظار لمدة 10 دقائق لمراقبة البث
